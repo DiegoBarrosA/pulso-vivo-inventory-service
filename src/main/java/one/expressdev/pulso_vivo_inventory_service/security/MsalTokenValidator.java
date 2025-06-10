@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class MsalTokenValidator {
 
-    @Value("${azure.client-id}")
+    @Value("${azure.client-id:default-client-id}")
     private String clientId;
 
-    @Value("${azure.client-secret}")
+    @Value("${azure.client-secret:default-client-secret}")
     private String clientSecret;
 
-    @Value("${azure.tenant-id}")
+    @Value("${azure.tenant-id:default-tenant-id}")
     private String tenantId;
 
     public String validateToken(String msalToken) throws Exception {
