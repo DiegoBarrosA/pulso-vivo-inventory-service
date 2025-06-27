@@ -10,34 +10,39 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/inventory")
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
-    public List<ProductDTO> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getProductById(id));
+        ProductDTO product = productService.getProductById(id);
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping("/products")
     public ResponseEntity<ProductDTO> createProduct(
         @RequestBody ProductDTO dto
     ) {
-        return ResponseEntity.ok(productService.createProduct(dto));
-    } // <-- This closing brace was moved here
+        ProductDTO product = productService.createProduct(dto);
+        return ResponseEntity.ok(product);
+    }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<ProductDTO> updateProduct(
         @PathVariable Long id,
         @RequestBody ProductDTO dto
     ) {
-        return ResponseEntity.ok(productService.updateProduct(id, dto));
+        ProductDTO product = productService.updateProduct(id, dto);
+        return ResponseEntity.ok(product);
     }
 
     @PatchMapping("/products/{id}/stock")
@@ -50,7 +55,10 @@ public class ProductController {
     }
 
     @GetMapping("/low-stock")
-    public List<ProductDTO> getLowStockProducts() {
-        return productService.getLowStockProducts();
+    public ResponseEntity<List<ProductDTO>> getLowStockProducts() {
+        List<ProductDTO> products = productService.getLowStockProducts();
+        return ResponseEntity.ok(products);
     }
+
+
 }
