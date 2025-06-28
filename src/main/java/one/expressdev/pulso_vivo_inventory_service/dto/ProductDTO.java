@@ -1,5 +1,15 @@
 package one.expressdev.pulso_vivo_inventory_service.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDTO {
 
     private Long id;
@@ -8,55 +18,36 @@ public class ProductDTO {
     private int quantity;
     private String category;
     private boolean active;
+    private BigDecimal price;
+    private LocalDateTime lastPriceUpdate;
+    private BigDecimal previousPrice;
+    private Long version;
 
-    // --- GETTERS AND SETTERS ---
-    // The compiler needs these methods to exist
-
-    public Long getId() {
-        return id;
+    // Business methods for price change calculations
+    public boolean hasPriceChanged() {
+        if (previousPrice == null && price == null) {
+            return false;
+        }
+        if (previousPrice == null || price == null) {
+            return true;
+        }
+        return previousPrice.compareTo(price) != 0;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public BigDecimal getPriceChangeAmount() {
+        if (previousPrice == null || price == null) {
+            return BigDecimal.ZERO;
+        }
+        return price.subtract(previousPrice);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    public double getPriceChangePercentage() {
+        if (previousPrice == null || price == null || previousPrice.compareTo(BigDecimal.ZERO) == 0) {
+            return 0.0;
+        }
+        return getPriceChangeAmount()
+                .divide(previousPrice, 4, java.math.RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .doubleValue();
     }
 }
