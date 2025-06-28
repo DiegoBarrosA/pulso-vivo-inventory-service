@@ -22,29 +22,29 @@ public class Product {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NAME", nullable = false)
+    private String name = "";
 
     @Column(name = "DESCRIPTION")
-    private String description;
+    private String description = "";
 
-    @Column(name = "QUANTITY")
-    private int quantity;
+    @Column(name = "QUANTITY", nullable = false)
+    private int quantity = 0;
 
-    @Column(name = "CATEGORY")
-    private String category;
+    @Column(name = "CATEGORY", nullable = false)
+    private String category = "General";
 
-    @Column(name = "ACTIVE")
-    private boolean active;
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active = true;
     
-    @Column(name = "PRICE", precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(name = "PRICE", precision = 10, scale = 2, nullable = false)
+    private BigDecimal price = BigDecimal.ZERO;
 
     @Column(name = "LAST_PRICE_UPDATE")
     private LocalDateTime lastPriceUpdate;
 
     @Column(name = "PREVIOUS_PRICE", precision = 10, scale = 2)
-    private BigDecimal previousPrice;
+    private BigDecimal previousPrice = BigDecimal.ZERO;
 
     @Version
     @Column(name = "VERSION")

@@ -1,9 +1,9 @@
 -- Sample data for testing the inventory service
 INSERT INTO product (name, description, quantity, category, active, price, last_price_update, previous_price, version) VALUES 
-('Laptop Dell XPS 13', 'High-performance ultrabook with 13-inch display', 25, 'Electronics', 1, 1299.99, SYSTIMESTAMP, NULL, 0);
+('Laptop Dell XPS 13', 'High-performance ultrabook with 13-inch display', 25, 'Electronics', 1, 1299.99, SYSTIMESTAMP, 1199.99, 0);
 
 INSERT INTO product (name, description, quantity, category, active, price, last_price_update, previous_price, version) VALUES 
-('iPhone 15', 'Latest Apple smartphone with advanced features', 50, 'Electronics', 1, 999.99, SYSTIMESTAMP, NULL, 0);
+('iPhone 15', 'Latest Apple smartphone with advanced features', 50, 'Electronics', 1, 999.99, SYSTIMESTAMP, 899.99, 0);
 
 INSERT INTO product (name, description, quantity, category, active, price, last_price_update, previous_price, version) VALUES 
 ('Samsung Galaxy S24', 'Premium Android smartphone', 30, 'Electronics', 1, 899.99, SYSTIMESTAMP, NULL, 0);

@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 public class ProductDTO {
 
     private Long id;
-    private String name;
-    private String description;
-    private int quantity;
-    private String category;
-    private boolean active;
-    private BigDecimal price;
-    private LocalDateTime lastPriceUpdate;
-    private BigDecimal previousPrice;
-    private Long version;
+    private String name = "";
+    private String description = "";
+    private int quantity = 0;
+    private String category = "General";
+    private boolean active = true;
+    private BigDecimal price = BigDecimal.ZERO;
+    private LocalDateTime lastPriceUpdate = LocalDateTime.now();
+    private BigDecimal previousPrice = BigDecimal.ZERO;
+    private Long version = 0L;
 
     // Business methods for price change calculations
     public boolean hasPriceChanged() {
