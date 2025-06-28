@@ -78,3 +78,10 @@ CREATE INDEX IDX_PRODUCT_LAST_PRICE_UPDATE ON PRODUCT(LAST_PRICE_UPDATE);
 
 -- Commit the schema changes
 COMMIT;
+
+
+-- Drop the problematic trigger
+DROP TRIGGER ADMIN.TRG_PRODUCT_ID;
+
+-- Also drop the associated sequence if it exists
+DROP SEQUENCE ADMIN.SEQ_PRODUCT_ID; 
