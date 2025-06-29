@@ -166,5 +166,22 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/products/{id}/buy")
+    public ResponseEntity<?> buyProduct(@PathVariable Long id, @RequestParam int quantity) {
+        try {
+            if (quantity <= 0) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Quantity must be greater than zero"));
+            }
+            InventoryUpdateRequest request = new InventoryUpdateRequest();
+            request.setQuantityChanged(-quantity); // Reduce stock
+            productService.updateStock(id, request);
+            ProductDTO updatedProduct = productService.getProductById(id);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Failed to buy product"));
+        }
+    }
 
 }
