@@ -36,7 +36,7 @@ public class Product {
 
     @Column(name = "ACTIVE", nullable = false)
     private boolean active = true;
-    
+
     @Column(name = "PRICE", precision = 10, scale = 2, nullable = false)
     private BigDecimal price = BigDecimal.ZERO;
 
